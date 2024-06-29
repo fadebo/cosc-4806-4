@@ -54,6 +54,9 @@ if (!isset($_SESSION['auth'])) {
               background-color: red;
               color: white;
           }
+          th{
+              color: white;
+          }
       </style>
     </head>
     <body>
