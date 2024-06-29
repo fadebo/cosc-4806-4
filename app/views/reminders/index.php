@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-  <table class="table table-striped">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Id</th>
@@ -21,7 +21,10 @@
       </tr>
     </thead>
     <tbody>
-        <?php foreach ($notes as $note): ?>
+        <?php 
+        global $reminders;
+       // var_dump($reminders); // Add this line to view the $notes variable
+        foreach ($reminders as $note): ?>
             <tr>
               <th scope="row"><?= $note['id']; ?></th>
               <td><?= $note['user_id']; ?></td>
