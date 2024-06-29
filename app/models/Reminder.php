@@ -21,7 +21,29 @@ class Reminder {
       $statement->bindValue(':subject', $subject);
       return $statement->execute();
     }
-   
+
+    public function update_reminder($id, $subject, $completed) {
+        $db = db_connect();
+        $statement = $db->prepare("UPDATE notes SET subject = :subject, completed = :completed WHERE id = :id");
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':subject', $subject, PDO::PARAM_STR);
+        $statement->bindParam(':completed', $completed, PDO::PARAM_INT);
+        return $statement->execute();
+    }
+
+    public function delete_reminder($id) {
+        $db = db_connect();
+        $statement = $db->prepare("UPDATE notes SET deleted = 1 WHERE id = :id");
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        return $statement->execute();
+    }
+
+    public function mark_completed($id) {
+        $db = db_connect();
+        $statement = $db->prepare("UPDATE notes SET completed = 1 WHERE id = :id");
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        return $statement->execute();
+    }
 }
 ?>
   

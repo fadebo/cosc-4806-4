@@ -33,6 +33,50 @@ class Reminders extends Controller {
         $this->view('reminders/create');
       }
     }
+
+  public function edit($id) {
+      global $reminder, $error;
+
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $subject = $_POST['subject'];
+          $completed = isset($_POST['completed']) ? 1 : 0;
+
+          if ($this->remindersModel->update_reminder($id, $subject, $completed)) {
+              header('Location: /reminders');
+              exit;
+          } else {
+              $error = 'Failed to update reminder';
+              $reminder = $this->remindersModel->get_reminder($id);
+          }
+      } else {
+          $reminder = $this->remindersModel->get_reminder($id);
+          if (!$reminder) {
+              header('Location: /reminders');
+              exit;
+          }
+      }
+
+      $this->view('reminders/edit');
+  }
+    public function delete($id) {
+        if ($this->remindersModel->delete_reminder($id)) {
+            header('Location: /reminders');
+            exit;
+        } else {
+            // Handle error
+            $this->view('reminders/index', ['error' => 'Failed to delete reminder']);
+        }
+    }
+
+    public function complete($id) {
+        if ($this->remindersModel->mark_completed($id)) {
+            header('Location: /reminders');
+            exit;
+        } else {
+            // Handle error
+            $this->view('reminders/index', ['error' => 'Failed to mark reminder as completed']);
+        }
+    }
 }
 
 ?>

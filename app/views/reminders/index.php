@@ -22,8 +22,9 @@
     </thead>
     <tbody>
         <?php 
+        //had to use global variables as there were problems trying to pass data with the view
         global $reminders;
-       // var_dump($reminders); // Add this line to view the $notes variable
+       // var_dump($reminders); 
         foreach ($reminders as $note): ?>
             <tr>
               <th scope="row"><?= $note['id']; ?></th>
@@ -34,7 +35,10 @@
               <td><?= $note['deleted'] ? 'Yes' : 'No'; ?></td>
               <td>
                   <a href="/reminders/edit/<?= $note['id']; ?>">Edit</a> 
-                  <a href="/reminders/delete/<?= $note['id']; ?>">Delete</a>
+                  <a href="/reminders/delete/<?= $note['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this reminder?')">Delete</a>
+                  <?php if (!$note['completed']): ?>
+                      <a href="/reminders/complete/<?= $note['id']; ?>" class="btn btn-sm btn-success">Mark Completed</a>
+                  <?php endif; ?>
               </td>
             </tr>
         <?php endforeach; ?>
