@@ -7,7 +7,7 @@ class User {
     public $auth = false;
 
     public function __construct() {
-        
+
     }
 
     public function test () {
@@ -23,8 +23,8 @@ class User {
          * if username and password good then
          * $this->auth = true;
          */
-    
-		// $username = strtolower($username);
+
+        // $username = strtolower($username);
   //   // Initialize the failed login attempts if not set
   //   if (!isset($_SESSION['failedAuth'])) {
   //       $_SESSION['failedAuth'] = 0;
@@ -36,8 +36,8 @@ class User {
   //   }
 
     //decided to use the database instead of the session 
-    
-    
+
+
     // // Check if the user is currently locked out
     // if (time() < $_SESSION['lockoutTime']) {
     //     $_SESSION['error'] = "Too many failed login attempts. Please try again in 60 seconds.";
@@ -46,7 +46,7 @@ class User {
     //     exit;
     // }
 
-		$db = db_connect();
+        $db = db_connect();
 
     // Check recent failed attempts
     $statement = $db->prepare("SELECT COUNT(*) AS failed_attempts, MAX(timestamp) AS last_attempt FROM login_attempts WHERE username = :username AND attempt = 'bad' AND timestamp > (NOW() - INTERVAL 1 MINUTE)");
@@ -71,16 +71,18 @@ class User {
     $statement->execute();
     $rows = $statement->fetch(PDO::FETCH_ASSOC);
    // $pass = password_hash($password, PASSWORD_DEFAULT);
-		if (password_verify($password, $rows['password'])) {
+        if (password_verify($password, $rows['password'])) {
       //Password is correct
-			$_SESSION['auth'] = 1;
-			$_SESSION['username'] = ucwords($username);
+            $_SESSION['auth'] = 1;
+            $_SESSION['username'] = ucwords($username);
+            $_SESSION['user_id'] = $rows['id'];
       unset($_SESSION['failedAuth']); // Clear any previous failed attempts
       unset($_SESSION['lockoutTime']); // Clear lockout time
+
       $this->logAttempt($username, 'good'); // Log the successful attempt
-			header('Location: /home');
-			die;
-		} else {
+            header('Location: /home');
+            die;
+        } else {
       // Incorrect password
       // $_SESSION['failedAuth']++;
       // if ($_SESSION['failedAuth'] >= 3) {
@@ -91,9 +93,9 @@ class User {
      // }
           $this->logAttempt($username, 'bad'); // Log the failed attempt
           //Redirect back to login with error message
-			     header('Location: /login');
-			     die;
-		}
+                 header('Location: /login');
+                 die;
+        }
   }
     public function create($username, $password, $password2){
       $username = strtolower($username);
@@ -101,7 +103,7 @@ class User {
       $statement = $db->prepare("select * from users WHERE username = :name;");
       $statement->bindValue(':name', $username);
       $statement->execute();
-      
+
       if($statement->rowCount() != 0) {
         $_SESSION['error'] = "Username already exists";
         header('Location: /create');
