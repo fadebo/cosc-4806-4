@@ -17,9 +17,8 @@ if (!isset($_SESSION['auth'])) {
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="/app/public/css/styles.css">
-      <style>
-       
-      </style>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
     <body>
 

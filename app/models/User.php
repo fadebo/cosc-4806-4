@@ -172,5 +172,18 @@ class User {
       $statement->bindValue(':attempt', $attempt);
       $statement->execute();
   }
-
+    public function get_login_counts(){
+        $db = db_connect();
+        $statement = $db->prepare("
+            SELECT username, COUNT(*) as login_count 
+            FROM login_attempts 
+            WHERE attempt = 'good' 
+            GROUP BY username 
+            ORDER BY login_count DESC
+        ");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
+    
+?>
