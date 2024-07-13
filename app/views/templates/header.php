@@ -7,7 +7,8 @@ if (!isset($_SESSION['auth'])) {
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" href="/favicon.png">
         <title>COSC 4806</title>
@@ -17,83 +18,37 @@ if (!isset($_SESSION['auth'])) {
         <meta name="mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="/app/public/css/styles.css">
       <style>
-          body {
-              background: linear-gradient(
-              -135deg
-              , #0f70b8, #1d82cd);
-              color: white;
-              
-          }
-        a {
-            color: red;
-        }
-        a:hover {
-            color: darkred;
-        }
-          .navbar-light .navbar-nav .nav-link,
-          .navbar-light .navbar-brand,
-          .navbar-light .navbar-toggler {
-              color: grey;
-          }
-          .navbar-light .navbar-nav .nav-link.active,
-          .navbar-light .navbar-nav .nav-link:hover,
-          .navbar-light .navbar-brand:hover {
-              color: red;
-          }
-          .btn {
-              background-color: red;
-              color: white;
-              border-color: red;
-          }
-          .btn:hover {
-              background-color: darkred;
-              border-color: darkred;
-          }
-          .dropdown-menu {
-              background-color: grey;
-          }
-          .dropdown-menu .dropdown-item {
-              color: white;
-          }
-          .dropdown-menu .dropdown-item:hover {
-              background-color: red;
-              color: white;
-          }
-          th, td{
-              color: white;
-          }
+       
       </style>
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">COSC 4806</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/reminders">Reminders</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">COSC 4806</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/reminders">Reminders</a>
+                </li>
+                <?php if ($_SESSION['is_admin']) { ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/reports">Reports</a>
+                  </li>
+                  <?php } ?>
+              </ul>
+              <span class="navbar-text">
+                Welcome, <?php echo $_SESSION['username']; ?>!
+              </span>
+            </div>
+          </div>
+        </nav>

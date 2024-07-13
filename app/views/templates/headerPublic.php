@@ -14,29 +14,6 @@ if (isset($_SESSION['auth']) == 1) {
     <meta name="viewport" content="width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="/app/public/css/styles.css">
-    <!-- <style>
-        body {
-            background: linear-gradient(
-            -135deg
-            , #0f70b8, #1d82cd);
-            color: white;
-        }
-        a {
-            color: red;
-        }
-        a:hover {
-            color: darkred;
-        }
-        .btn {
-            background-color: red;
-            color: white;
-            border-color: red;
-        }
-        .btn:hover {
-            background-color: darkred;
-            border-color: darkred;
-        }
-    </style> -->
+    <link rel="stylesheet" href="/app/public/css/publicstyles.css">
 </head>
 <body>

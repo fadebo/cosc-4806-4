@@ -72,6 +72,9 @@ class User {
     $rows = $statement->fetch(PDO::FETCH_ASSOC);
    // $pass = password_hash($password, PASSWORD_DEFAULT);
         if (password_verify($password, $rows['password'])) {
+            if(isset($rows['is_admin']) == 1){
+                $_SESSION['is_admin'] = $rows['is_admin'];
+            }
       //Password is correct
             $_SESSION['auth'] = 1;
             $_SESSION['username'] = ucwords($username);
