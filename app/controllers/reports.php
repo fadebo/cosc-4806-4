@@ -13,6 +13,8 @@ class Reports extends Controller {
     public function index() {
         // Ensure only admin users can access
         if (!$_SESSION['is_admin']) {
+            //Didn't send be back to home page, same problem as last time. It's not redirecting to the specified location, tried to echo as you suggested last time and it works but still doesn't redirect.
+            echo"You are not authorized to access this page.";
             header('Location: /home');
             exit;
         }
