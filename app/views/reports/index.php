@@ -51,20 +51,62 @@ global $data;
         </div>
     </div>
 
+    <!-- Chart -->
     <div class="row mt-4">
         <div class="col-lg-8 offset-lg-2">
-            <div class="card bg-dark text-white">
+            <div class="card bg-light text-dark">
                 <div class="card-body">
-                    <h5 class="card-title">View All Reminders</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item bg-dark text-white">Updated project documentation</li>
-                        <li class="list-group-item bg-dark text-white">Completed task: Design homepage</li>
-                        <li class="list-group-item bg-dark text-white">New message from client</li>
-                    </ul>
+                    <h5 class="card-title">Login Counts Chart</h5>
+                    <canvas id="loginCountsChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var chartData = <?php echo $data['chart_data']; ?>;
 
+        console.log(chartData); // Print chart data to console for debugging
+
+        var usernames = chartData.data.map(function(entry) {
+            return entry.username;
+        });
+
+        console.log(usernames); // Print usernames to console
+
+        var ctx = document.getElementById('loginCountsChart').getContext('2d');
+        var loginCountsChart = new Chart(ctx, {
+            type: 'bar', // Specify the chart type (bar, line, pie, etc.)
+            data: {
+                labels: usernames, // Use extracted usernames as labels
+                datasets: [{
+                    label: 'Login Counts',
+                    data: chartData.data.map(function(entry) {
+                        return entry.login_count;
+                    }),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', 
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + tooltipItem.raw.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 <?php require_once 'app/views/templates/footer.php'; ?>
